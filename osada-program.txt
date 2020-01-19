@@ -1,0 +1,257 @@
+import java.util.Scanner;
+
+public class ProjektObiektowe{
+
+    public static void main(String[] args) {
+
+        System.out.println("Witaj! Aby rozpoczπÊ wybierz swojπ postaÊ. Wpisz: \n1 - SPRZEDAWCA ZBROI" +
+                " \n2 - KLIENT KUèNI \n3 - WYMAGAJ•CY KLIENT \nWybÛr zatwierdü przyciskiem enter! ->");
+
+
+        Scanner odczyt = new Scanner(System.in);
+
+        int wyborPostaci;
+        wyborPostaci = odczyt.nextInt();
+
+        int wybor;
+
+        if (wyborPostaci == 1)
+
+        {
+            do {
+                SprzedawcaZbroi Ania = new SprzedawcaZbroi();
+                //podstawowe wejscie - pobranie wyboru od uzytkownika
+
+                System.out.println("\tINFORMACJE NA START: WYBIERZ - 1 \n" +
+                        "\tDORADè KLIENTOWI:\tWYBIERZ - 2\n" +
+                        "\tNEGOCJUJ CEN :\t\tWYBIERZ - 3\n" +
+                        "\tDOKONAJ TRANSAKCJI:\tWYBIERZ - 4\n" +
+                        "\tODPOCZNIJ:\t\t\tWYBIERZ - 5\n" +
+                        "\t\tKONIEC\tWYBIERZ - 0");
+
+                wybor = odczyt.nextInt();
+
+
+                if (wybor == 1) {
+                    Ania.pokazInformacje();
+                }
+                else if (wybor == 2) {
+                    Ania.doradzKlientowi();
+                }
+                else if (wybor == 3) {
+                    Ania.negocjujCene();
+                }
+                else if (wybor == 4) {
+                    Ania.dokonajTransackji();
+                }
+                else if (wybor == 5) {
+
+                    System.out.println("Ile godzin ma trwaÊ odpoczynek sprzeadwcy? (1h daje 10 punktÛw zdrowia)");
+                    int czas;
+                    czas = odczyt.nextInt();
+                    Ania.odpocznij(czas);
+                }
+
+            } while (wybor != 0);
+
+        }
+
+        else if (wyborPostaci == 2) {
+            do {
+                Klient Jan = new Klient();
+
+            System.out.println("\tINFORMACJE NA START: WYBIERZ - 1 \n" +
+                    "\tPRZEGL•DAJ PRODUKTY: WYBIERZ - 2\n" +
+                    "\tKUP PRODUKT: \tWYBIERZ - 3\n" +
+                    "\tZLOZ REKLAMACJE:\tWYBIERZ - 4\n" +
+                    "\t\tKONIEC\tWYBIERZ - 0");
+
+                wybor = odczyt.nextInt();
+
+                if (wybor ==1) {
+                    Jan.pokazInformacje();
+                }
+                else if (wybor == 2){
+                    Jan.przegladajPrzedmioty();
+                }
+                else if (wybor == 3) {
+                    Jan.kupProdukt();
+                }
+                else if (wybor == 4){
+                    Jan.zlozReklamacje();
+                }
+
+            }while(wybor!=0);
+        }
+
+        else if (wyborPostaci == 3) {
+            do {
+                WymagajacyKlient Kazik = new WymagajacyKlient();
+
+                System.out.println("\tINFORMACJE NA START: WYBIERZ - 1 \n" +
+                        "\tPOPROS SPRZEDAWCE O RAD : WYBIERZ - 2\n" +
+                        "\tAWANTURUJ SI : \tWYBIERZ - 3\n" +
+                        "\t\tKONIEC\tWYBIERZ - 0");
+
+                wybor = odczyt.nextInt();
+                if (wybor == 1){
+                    Kazik.pokazInformacje();
+                }
+                else if (wybor == 2){
+                    Kazik.poprosODoradzenie();
+                }
+                else if (wybor == 3){
+                    Kazik.awanturujSie();
+                }
+            } while (wybor !=0);
+        }
+
+        else System.out.println("WybÛr b≥Ídnie wpisany");
+    }
+
+
+    }
+
+
+    class Informacje {
+        //ustawienie wartosci deafaultowych w pustym konstruktorze
+        public Informacje() {
+            this("Ania", 22, 100, 100, "kobieta");
+        }
+
+        //konstruktor z parametrami
+        public Informacje(String imie, int wiek, int zdrowie, int wKasie, String plec) {
+            this.imie = imie;
+            this.wiek = wiek;
+            this.zdrowie = zdrowie;
+            this.wKasie = wKasie;
+            this.plec = plec;
+
+        }
+
+        String imie;
+        int wiek;
+        int zdrowie;
+        int wKasie;
+        String plec;
+
+
+        public void pokazInformacje() {
+            System.out.println("Wybrana postaÊ to " + this.wiek + " letni/a " + this.plec + " o imieniu " + imie + "\n" + "Obecny stan zdrowia: " + zdrowie + "\n"
+                    + "Obecny stan kasy: " + this.wKasie);
+        }
+    }
+
+    class SprzedawcaZbroi extends Informacje {
+        public SprzedawcaZbroi() {
+        }
+
+        public int cena = 100;
+
+        void negocjujCene() {
+            zdrowie -= 10;
+            cena -= 5;
+            System.out.println("Sprzedawca " + imie + " zgodzi≥ siÍ na opuszczenie czÍúci ceny z towaru. Poniewaø negocjacje by≥y zaciÍte sprzedawca " + imie + " straci≥ 10 punktÛw zdrowia.");
+            System.out.println("Obecna cena: " + cena + "\nObecny stan zdrowia: " + zdrowie);
+        }
+
+        void dokonajTransackji() {
+            wKasie += cena;
+            System.out.println("Sprzedawca " + imie + " sprzeda≥ zbrojÍ! DziÍki dokonaniu transakcji Twoja iloúÊ pieniÍdzy w kasie wzros≥a do: " + wKasie);
+        }
+
+        void doradzKlientowi() {
+            zdrowie -= 20;
+            System.out.println("Do sklepu przyszed≥ bardzo wymagajπcy klient. Sprzedawca " + imie + " straci≥ aø 20 punktÛw zdrowia doradzajπc Mu.\nObecny stan zdrowia: " + zdrowie);
+        }
+
+        public void odpocznij(int czas) {
+            zdrowie += 10 * czas;
+            System.out.println("Sprzedawca " + imie + " potrzebuje odpoczynku. DziÍki " + czas + "h relaksu zdrowie sprzedawcy wzros≥o do: " + zdrowie);
+        }
+
+    }
+
+    class Klient extends Informacje {
+        public Klient() {
+            super("Jan", 30, 100, 100, "mezczyzna");
+        }
+
+        Scanner odczyt = new Scanner(System.in);
+
+        void przegladajPrzedmioty(){
+            System.out.println("Wprowadü iloúÊ produktÛw, ktÛre " + imie + "chce zobaczyÊ");
+            int ile = odczyt.nextInt();
+            int przejrzaneProdukty = 0;
+
+         for (int i = 0; i < ile; i++){
+             ++ przejrzaneProdukty;
+            }
+            System.out.println("Klient przejrzal " + przejrzaneProdukty + " produktÛw. Ciekawe czy zdecyduje siÍ na jakiú zakup...");
+        }
+
+
+        void kupProdukt() {
+            System.out.println("Wpisz iloúÊ produktÛw do kupienia: ");
+            int ileKupic = odczyt.nextInt();
+            int iloscProduktow = 0;
+
+            for (iloscProduktow = 0; iloscProduktow < ileKupic ; iloscProduktow++) {
+                wKasie -= 20;
+
+            }
+
+            System.out.println(imie + " zdecydowa≥ siÍ na zakup produktu!\nW kasie pozosta≥o: " + wKasie);
+            System.out.println("Klient ≥πcznie zakupi≥ " + iloscProduktow+ " produktÛw.");
+        }
+
+            void zlozReklamacje(){
+                zdrowie -= 30;
+                wKasie += 50;
+                System.out.println(imie + " by≥ niezadowolony z produktu, wiÍc postanowi≥ z≥oøyÊ reklamacjÍ w sklepie.\n" +
+                        "Sprzedawca ugiπ≥ siÍ pod ciÍøarem argumentÛw i zwrÛci≥ ca≥π kwotÍ zakupu.\n" +
+                        "Obecnie w kasie: " + wKasie);
+            }
+        }
+
+        class WymagajacyKlient extends Informacje {
+            public WymagajacyKlient() {
+                super("Kazik", 60, 90, 100, "mezczyzna");
+                System.out.println("Zdecydow≥eú siÍ wybraÊ wymagajπcego klineta. Powodzenia!");
+            }
+
+            Scanner odczyt = new Scanner(System.in);
+
+            void poprosODoradzenie() {
+                int poziomZdenerwowania = 1;
+                System.out.println("Zdecydowa≥eú siÍ poprosiÊ sprzedawcÍ o doradzenie w zakupach. Zecyduj, czy sprzedawca by≥ pomocny wybierajπc 1, jeúli tak lub 0, jeúli nie");
+                int decyzja = odczyt.nextInt();
+
+
+                if (decyzja == 0) {
+                    ++poziomZdenerwowania;
+
+                    System.out.println("Sprzedawca okaza≥ siÍ nie byÊ pomocny, co bardzo rozz≥oúci≥o " + imie + "a.\n" +
+                            "Poziom zdenerwowania klienta wzrÛs≥ do " + poziomZdenerwowania);
+                }
+
+                else if (decyzja == 1){
+                    System.out.println(imie + " jest zadowolony z porady!");
+                }
+
+            }
+
+
+            void awanturujSie(){
+                int poziomZdenerwowania = 5;
+                zdrowie-= 3*poziomZdenerwowania;
+                System.out.println("Sklep nie spe≥nia oczekiwaÒ wymagajπcego klienta, a ponadto " + this.imie + "poczu≥ siÍ üle potraktowany. Na poziomie zdenerwowania" +
+                 poziomZdenerwowania + " " + imie +  " rozpÍta≥ awanturÍ, przez co podupad≥ na zdrowiu.");
+                System.out.println("\nObecny stan zdrowia: " + this.zdrowie);
+
+            }
+
+
+
+
+        }
